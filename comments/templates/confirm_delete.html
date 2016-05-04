@@ -1,0 +1,46 @@
+{% extends "header.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!-- <script>
+ $(".comment-reply-btn").click(function(event){
+        event.preventDefault();
+        $(this).parent().next(".comment-reply").fadeToggle();
+    })
+</script> -->
+
+<h1>Create new post</h1>
+<div class="col-sm-6 col-sm-offset-3">
+<form method="POST" action="." >{% csrf_token %}
+<p> Ar tikrai norite istrinti: "{{object}}"</p>
+<input type="submit"  value="patvirtint"  class="btn btn-warning" >
+<a href="{{object.get_absolute_url}}"></a>
+</form>
+ </div>
+
+	
+{% endblock %}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

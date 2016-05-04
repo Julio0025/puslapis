@@ -1,0 +1,116 @@
+{% extends "header.html" %}
+{% block content %}
+{% load crispy_forms_tags %}
+<!-- <script>
+ $(".comment-reply-btn").click(function(event){
+        event.preventDefault();
+        $(this).parent().next(".comment-reply").fadeToggle();
+    })
+</script> -->
+<div class='col-sm-6 col-sm-offset-3'>
+    
+	<h1> {{ instance.content|linebreaks}} </h1>
+	<hr/>
+	<br/>
+	<p> {{ instance.content|linebreaks}} </p></br>
+	<hr/>
+	<br/>
+	<p> Author: {{instance.user}}</p>
+	<p align="left">patalpina pries {{ instance.timestamp|timesince}} </p>
+	<ul class="nav navbar-nav">
+		<li><p><a class="btn btn-default"  href= "/diskusijos/{{instance.id}}/edit">Redaguot</p></a></li>
+		<li><p><a class="btn btn-default" href= "/diskusijos/{{instance.id}}/delete">Istrint</p></a></li>
+	</ul>
+	
+	
+	<div class='row'>
+<div class='col-sm-12 '>
+
+
+
+    <hr/>
+    <br/>
+
+    <div>
+
+        <p class='lead'>Komentarai</p>
+        <form method="POST" action="."> {% csrf_token %}
+            {{ comment_form|crispy }}
+            <input type="submit" value='Komentuot' class="btn btn-default">
+        </form>
+        <hr/>
+        {% for comment in comments %}
+
+        <blockquote>
+          <p>{{ comment.content }}</p>
+          <footer>
+		  Autorius: {{ comment.user }} | {{ comment.timestamp|timesince }} 
+		  {%if comment.children.count > 0%} 
+		  Atsakymai: 
+			 {{comment.children.count}} 
+		{% else%}
+		Atsakymu nera
+		
+		{%endif%}
+		
+		  <a <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Atsakyti</a></a> </footer>
+			<div class="collapse" id="collapseExample">
+			<div class="well">
+					{% for child_comment in comment.children %}
+					<blockquote>
+					<p>{{ child_comment.content }}</p>
+						<footer>via {{ child_comment.user }} | {{ child_comment.timestamp|timesince }} ago</footer>
+					</blockquote>
+				 {% endfor %}
+				<form method="POST" action="."> {% csrf_token %}
+					{{ comment_form|crispy }}
+						<input type="hidden" name="parent_id" value="{{ comment.id }}">
+					<input type="submit" value="Komentuot" class="btn btn-default">
+				</form>	
+			</div>
+			
+
+        </blockquote>
+		
+		
+        <hr/>
+        {% endfor %}
+    </div>
+	 </div>
+	
+	
+
+
+
+
+</div>
+</div>
+
+
+	
+{% endblock %}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

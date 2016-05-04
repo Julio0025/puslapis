@@ -1,0 +1,48 @@
+{% extends "header.html" %}
+
+{% block content %}
+	
+	
+<p><a class="btn btn-default" href="/diskusijos/create/">Sukurti posta</a></p>
+
+{% for obj in object_list%}
+<div class ="row">
+	<div class="col-md-8 ">
+		<div class ="col-md-8 col-sm-offset-5">
+		<div class ="thumbnail">
+		<div class ="caption">
+				<h1>{{ obj.title}}</h1>
+				<p>{{ obj.content|linebreaks}} </p></br>
+				<p align="left">patalpina pries {{ obj.timestamp|timesince}} </p>
+				<p> Author: {{obj.user}}</p>
+				<p><a class="btn btn-default" href= "{% url 'detail' id=obj.id %}">Placiau</a></p>
+		</div>
+		</div>		
+		</div>
+	</div>
+</div>
+{% endfor %}
+<nav>
+ <ul class="pager">
+
+        {% if object_list.has_previous %}
+            <li><a href="?page={{ object_list.previous_page_number }}">previous</a></li>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+        <li>    <a href="?page={{ object_list.next_page_number }}">next</a></li>
+        {% endif %}
+</nav>
+
+
+{% endblock %}
+
+
+  
+  
+  
+  
