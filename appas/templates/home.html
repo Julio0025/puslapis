@@ -23,4 +23,13 @@
 {% endfor %}
 
 
+
+<ul>
+{% for entry in feeds.entries %}
+    <li><a href="{{entry.link}}">{{entry.title}}</a></li>
+
+{% endfor %}
+</ul>
+
+
 {% endblock %}

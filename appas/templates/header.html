@@ -29,8 +29,18 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Pradininis puslapis</a></li>
       <li><a href="/diskusijos/">Diskusijos</a></li>
+		{% if user.is_authenticated%}
        <li><a href="/nustatymai/">Mano</a></li> 
+	   {%else%}
+	    <li><a href="/login">Mano</a></li> 
+		{%endif%}
     </ul>
+	{% if user.is_authenticated %}
+       <button class="btn btn-default btn-lg"><a href="/logout">Atsijungti</a></button>
+      {% else %}
+     <button class="btn btn-default btn-lg"> <a href="/login"> Prisijungti</a></button>
+     <button class="btn btn-default btn-lg"> <a href="/register"> Registruotis</a></button>
+      {% endif %}
   </div>
 </nav>
 

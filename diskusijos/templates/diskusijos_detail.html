@@ -18,8 +18,12 @@
 	<p> Author: {{instance.user}}</p>
 	<p align="left">patalpina pries {{ instance.timestamp|timesince}} </p>
 	<ul class="nav navbar-nav">
+		
+		{%if instance.user.id == request.user.id or user.is_superuser%}
 		<li><p><a class="btn btn-default"  href= "/diskusijos/{{instance.id}}/edit">Redaguot</p></a></li>
 		<li><p><a class="btn btn-default" href= "/diskusijos/{{instance.id}}/delete">Istrint</p></a></li>
+		{% endif %}
+		
 	</ul>
 	
 	
@@ -44,7 +48,7 @@
         <blockquote>
           <p>{{ comment.content }}</p>
           <footer>
-		  Autorius: {{ comment.user }} | {{ comment.timestamp|timesince }} 
+		  Autorius: {{ comment.user }}  | {{ comment.timestamp|timesince }} 
 		  {%if comment.children.count > 0%} 
 		  Atsakymai: 
 			 {{comment.children.count}} 
@@ -52,6 +56,9 @@
 		Atsakymu nera
 		
 		{%endif%}
+	{%if comment.user.id == request.user.id or user.is_superuser%}
+	<p><a  href= "/{{comment.id}}/delete_comment">Istrint</p></a>
+	{% endif %}
 		
 		  <a <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Atsakyti</a></a> </footer>
 			<div class="collapse" id="collapseExample">
@@ -60,6 +67,9 @@
 					<blockquote>
 					<p>{{ child_comment.content }}</p>
 						<footer>via {{ child_comment.user }} | {{ child_comment.timestamp|timesince }} ago</footer>
+						{%if comment.user.id == request.user.id or user.is_superuser%}
+						<p><a  href= "/{{comment.id}}/delete_comment">Istrint</p></a>
+						{% endif %}
 					</blockquote>
 				 {% endfor %}
 				<form method="POST" action="."> {% csrf_token %}

@@ -32,8 +32,6 @@ def diskusijos(request):
 
 
 def diskusijos_create(request):
-    if not request.user.is_staff or not request.user.is_superuser:
-        raise Http404
     if not request.user.is_authenticated():
         raise Http404
     form = postform(request.POST or None)
