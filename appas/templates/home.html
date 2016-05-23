@@ -2,34 +2,58 @@
 {% block content %}
 
 <h2>Naujausi postai</h2>
-{% for obj in object_list%}
 
-<div class ="row">
-	<div class="col-md-6 ">
-		<div class ="col-md-8 col-sm-offset 3">
-		<div class ="thumbnail">
-		<div class ="caption">
+
+<style>
+div.centerpanel {
+
+    width:100%;
+    height:100%;
+    text-align: center;
+}
+.leftpanel {
+	float:left;
+    display:inline-block;
+    width:50%;
+    margin:0;
+}
+.rightpanel {
+	float:right;
+    display:inline-block;
+    width:50%;
+    text-wrap:none;
+}
+
+</style>
+<div class="centerpanel">
+
+<div class="leftpanel">
+			{% for obj in object_list%}
+	
+			<div  class ="thumbnail">
+			<div class ="caption">
 				<h1>{{ obj.title}}</h1>
 				<p>{{ obj.content|linebreaks}} </p></br>
-				<p align="left">patalpina pries {{ obj.timestamp|timesince}} </p>
+				<p>patalpina pries {{ obj.timestamp|timesince}} </p>
 				<p> Author: {{obj.user}}</p>
 				<p><a class="btn btn-default" href= "{% url 'detail' id=obj.id %}">Placiau</a></p>
-		</div>
-		</div>		
-		</div>
-	</div>
+			</div>		
+			</div>
+			{% endfor %}
 </div>
 
-{% endfor %}
 
-
-
-<ul>
-{% for entry in feeds.entries %}
-    <li><a href="{{entry.link}}">{{entry.title}}</a></li>
-
+<div class="rightpanel">
+<h1>Games.lt naujienos</h1>
+<ul class="list-group">
+{% for entry in feeds.entries|slice:":5"  %}
+	<li class="list-group-item"><a href="{{entry.link}}">{{entry.title}}</a></li>
 {% endfor %}
 </ul>
-
-
 {% endblock %}
+</div>
+	
+</div>
+
+
+

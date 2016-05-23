@@ -29,17 +29,12 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="/">Pradininis puslapis</a></li>
       <li><a href="/diskusijos/">Diskusijos</a></li>
-		{% if user.is_authenticated%}
-       <li><a href="/nustatymai/">Mano</a></li> 
-	   {%else%}
-	    <li><a href="/login">Mano</a></li> 
-		{%endif%}
     </ul>
 	{% if user.is_authenticated %}
-       <button class="btn btn-default btn-lg"><a href="/logout">Atsijungti</a></button>
+       <a class="btn btn-default btn-lg" href="/logout">Atsijungti</a>
       {% else %}
-     <button class="btn btn-default btn-lg"> <a href="/login"> Prisijungti</a></button>
-     <button class="btn btn-default btn-lg"> <a href="/register"> Registruotis</a></button>
+     <a class="btn btn-default btn-lg" href="/login"> Prisijungti</a>
+     <a class="btn btn-default btn-lg" href="/register"> Registruotis</a>
       {% endif %}
   </div>
 </nav>

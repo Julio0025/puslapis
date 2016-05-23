@@ -1,7 +1,12 @@
 {% extends "header.html" %}
 {% block content %}
 {% load crispy_forms_tags %}
-
+<!-- <script>
+ $(".comment-reply-btn").click(function(event){
+        event.preventDefault();
+        $(this).parent().next(".comment-reply").fadeToggle();
+    })
+</script> -->
 <div class='col-sm-6 col-sm-offset-3'>
     
 	<h1> {{ instance.content|linebreaks}} </h1>
